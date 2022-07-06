@@ -38,4 +38,3 @@
 #include "solid_reactive_nexus.h"
 #include "splash_anim.h"
 #include "solid_splash_anim.h"
-#include "vialrgb_direct_anim.h"

@@ -38,11 +38,14 @@ enum hid_report_ids {
 /* Mouse buttons */
 #define MOUSE_BTN_MASK(n) (1 << (n))
 enum mouse_buttons {
-    MOUSE_BTN1 = (1 << 0),
-    MOUSE_BTN2 = (1 << 1),
-    MOUSE_BTN3 = (1 << 2),
-    MOUSE_BTN4 = (1 << 3),
-    MOUSE_BTN5 = (1 << 4)
+    MOUSE_BTN1 = MOUSE_BTN_MASK(0),
+    MOUSE_BTN2 = MOUSE_BTN_MASK(1),
+    MOUSE_BTN3 = MOUSE_BTN_MASK(2),
+    MOUSE_BTN4 = MOUSE_BTN_MASK(3),
+    MOUSE_BTN5 = MOUSE_BTN_MASK(4),
+    MOUSE_BTN6 = MOUSE_BTN_MASK(5),
+    MOUSE_BTN7 = MOUSE_BTN_MASK(6),
+    MOUSE_BTN8 = MOUSE_BTN_MASK(7)
 };
 
 /* Consumer Page (0x0C)
@@ -198,15 +201,25 @@ typedef struct {
     uint32_t usage;
 } __attribute__((packed)) report_programmable_button_t;
 
+#ifdef MOUSE_EXTENDED_REPORT
+typedef int16_t mouse_xy_report_t;
+#else
+typedef int8_t mouse_xy_report_t;
+#endif
+
 typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
 #endif
     uint8_t buttons;
-    int8_t  x;
-    int8_t  y;
-    int8_t  v;
-    int8_t  h;
+#ifdef MOUSE_EXTENDED_REPORT
+    int8_t boot_x;
+    int8_t boot_y;
+#endif
+    mouse_xy_report_t x;
+    mouse_xy_report_t y;
+    int8_t            v;
+    int8_t            h;
 } __attribute__((packed)) report_mouse_t;
 
 typedef struct {
@@ -316,6 +329,10 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
 void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key);
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key);
 void clear_keys_from_report(report_keyboard_t* keyboard_report);
+
+#ifdef MOUSE_ENABLE
+bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report);
+#endif
 
 #ifdef __cplusplus
 }
