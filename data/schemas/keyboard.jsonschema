@@ -15,7 +15,7 @@
                         "properties": {
                             "pin_a": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                             "pin_b": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"} 
+                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                         }
                     }
                 }
@@ -86,7 +86,7 @@
         },
         "bootloader": {
             "type": "string",
-            "enum": ["atmel-dfu", "bootloadhid", "bootloadHID", "custom", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "md-boot", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "gd32v-dfu", "wb32-dfu", "unknown", "usbasploader", "USBasp", "tinyuf2", "vibl", "rp2040"],
+            "enum": ["atmel-dfu", "bootloadhid", "bootloadHID", "custom", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "md-boot", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "gd32v-dfu", "wb32-dfu", "unknown", "usbasploader", "USBasp", "tinyuf2", "rp2040", "vibl"],
         },
         "bootloader_instructions": {
             "type": "string",

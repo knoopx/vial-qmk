@@ -349,7 +349,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE) && !defined(VIALRGB_ENABLE) 
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE) && !defined(VIALRGB_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -371,7 +371,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE) && !defined(VIALRGB_ENABLE) 
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE) && !defined(VIALRGB_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -393,7 +393,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE) && !defined(VIALRGB_ENABLE) 
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE) && !defined(VIALRGB_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -419,7 +419,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case id_dynamic_keymap_macro_get_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2]; // size <= 28
-            if (size <= 28)
                 dynamic_keymap_macro_get_buffer(offset, size, &command_data[3]);
             break;
         }
@@ -431,7 +430,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2]; // size <= 28
-            if (size <= 28)
                 dynamic_keymap_macro_set_buffer(offset, size, &command_data[3]);
             break;
         }
@@ -446,14 +444,12 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case id_dynamic_keymap_get_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2]; // size <= 28
-            if (size <= 28)
                 dynamic_keymap_get_buffer(offset, size, &command_data[3]);
             break;
         }
         case id_dynamic_keymap_set_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2]; // size <= 28
-            if (size <= 28)
                 dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             break;
         }
@@ -479,8 +475,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
 #endif
         default: {
-            // The command ID is not known let the keyboard implement it
-            raw_hid_receive_kb(data, length);
+            // The command ID is not known
+            // Return the unhandled state
+            *command_id = id_unhandled;
             break;
         }
     }

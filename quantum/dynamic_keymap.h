@@ -22,10 +22,6 @@
 #include "vial.h"
 #endif
 
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
-#endif
-
 uint8_t  dynamic_keymap_get_layer_count(void);
 void *   dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column);
 uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column);
